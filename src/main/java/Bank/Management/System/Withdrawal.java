@@ -20,7 +20,7 @@ public class Withdrawal extends JFrame implements ActionListener {
         this.pinnumber = pinnumber;
         setLayout(null);
 
-        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("resources/icons/atm.jpg"));
+        ImageIcon i1 = new ImageIcon(getClass().getResource("icons/atm.jpg"));
         Image i2 = i1.getImage().getScaledInstance(900, 900,Image.SCALE_DEFAULT);
         ImageIcon i3 = new ImageIcon(i2);
         JLabel image = new JLabel(i3);
@@ -58,18 +58,18 @@ public class Withdrawal extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae){
         if(ae.getSource()==withdraw){
-            // String number = amount.getText();
-            // // LocaleDate date = LocalDate
-            // Conn c = new Conn();
-            // String query = "INSERT INTO bank VALUES('pinnumber','"+number+"')";
-            // try{
-            //     c.s.executeUpdate(query);
-            // }catch(Exception e){
-            //     System.out.println(e);
-            // }
+            String number = amount.getText();
+            // LocaleDate date = LocalDate
+            Conn c = new Conn();
+            String query = "INSERT INTO bank VALUES('pinnumber','"+number+"')";
+            try{
+                c.s.executeUpdate(query);
+            }catch(Exception e){
+                System.out.println(e);
+            }
         }else if(ae.getSource() == exit){
             setVisible(false);
-            // new login().setVisible(true);
+            new login().setVisible(true);
         }
     }
     public static void main(String[] args) {

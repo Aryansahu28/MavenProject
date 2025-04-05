@@ -4,6 +4,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -13,14 +15,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 
-import com.toedter.calendar.JDateChooser;
 
 public class SignupOne extends JFrame implements ActionListener{
     long random;
     JTextField nameTextField,fnameTextField, emailTextField, addressTextField, CityTextField, pincodeTextField, stateTextField;
     JButton next;
+    JTextField dobTextField;
     JRadioButton male,female,other,married,unmarried;
-    JDateChooser dateChooser;
+    JLabel dob;
 
     public SignupOne(){
         setLayout(null);
@@ -62,10 +64,20 @@ public class SignupOne extends JFrame implements ActionListener{
         dob.setFont(new Font("Arial",Font.BOLD,20));
         add(dob);
         
-        dateChooser = new JDateChooser();
-        dateChooser.setBounds(300,260,200,30);
-        dateChooser.setBackground(Color.white);
-        add(dateChooser);
+        // Replace the JDateChooser with a JTextField for date input
+
+
+    // Inside the constructor, replace the JDateChooser setup
+    dob = new JLabel("Date of Birth:");
+    dob.setBounds(100, 260, 200, 30);
+    dob.setFont(new Font("Arial", Font.BOLD, 20));
+    add(dob);
+
+    dobTextField = new JTextField();
+    dobTextField.setBounds(300, 260, 400, 30);
+    dobTextField.setFont(new Font("Arial", Font.PLAIN, 16));
+    dobTextField.setToolTipText("Enter date in dd/MM/yyyy format");
+    add(dobTextField);
         
 
 
@@ -182,48 +194,55 @@ public class SignupOne extends JFrame implements ActionListener{
         setVisible(true);
 
     }
-    public void actionPerformed(ActionEvent ae){
+    public void actionPerformed(ActionEvent ae) {
         String formno = "" + random;
         String name = nameTextField.getText();
         String fname = fnameTextField.getText();
-        String dob = ((JTextField) dateChooser.getDateEditor().getUiComponent()).getText();
-
+        String dob = dobTextField.getText(); // Get the date from the JTextField
+    
         String gender = null;
-        if(male.isSelected()){
+        if (male.isSelected()) {
             gender = "Male";
-        }else if(female.isSelected()){
+        } else if (female.isSelected()) {
             gender = "Female";
         }
-
+    
         String marital = null;
-        if(married.isSelected()){
+        if (married.isSelected()) {
             marital = "Married";
-        }else if(unmarried.isSelected()){
+        } else if (unmarried.isSelected()) {
             marital = "Unmarried";
-        }else if(other.isSelected()){
+        } else if (other.isSelected()) {
             marital = "Other";
         }
-
+    
         String address = addressTextField.getText();
         String city = CityTextField.getText();
         String state = stateTextField.getText();
         String pincode = pincodeTextField.getText();
-
-
-        try{
-            if(name.equals("")){
+    
+        // Validate the date format
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateFormat.setLenient(false);
+        try {
+            dateFormat.parse(dob); // Check if the date is valid
+        } catch (ParseException e) {
+            JOptionPane.showMessageDialog(null, "Invalid date format. Please use dd/MM/yyyy.");
+            return; // Stop further execution if the date is invalid
+        }
+    
+        try {
+            if (name.equals("")) {
                 JOptionPane.showMessageDialog(null, "Name is required");
-            }
-            else{
+            } else {
                 Conn c = new Conn();
-                String query = "INSERT INTO signup VALUES('"+formno+"','"+name+"','"+fname+"','"+dob+"','"+gender+"','"+marital+"','"+address+"','"+city+"','"+pincode+"','"+state+"')";
+                String query = "INSERT INTO signup VALUES('" + formno + "','" + name + "','" + fname + "','" + dob + "','" + gender + "','" + marital + "','" + address + "','" + city + "','" + pincode + "','" + state + "')";
                 c.s.executeUpdate(query);
-
+    
                 setVisible(false);
                 new SignupTwo(formno).setVisible(true);
-
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
     }

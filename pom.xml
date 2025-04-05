@@ -6,18 +6,23 @@
     <version>1.0-SNAPSHOT</version>
     <url>http://www.toedter.com/en/jcalendar/</url>
     <dependencies>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+        </dependency>
+
+
+        <!-- Removed the problematic dependency org.ow2.petals.samples.sql:sa-sql-mysql -->
+
         <dependency>
         <groupId>com.toedter</groupId>
         <artifactId>jcalendar</artifactId>
         <version>1.4</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.mysql/mysql-connector-j -->
-        <dependency>
-            <groupId>com.mysql</groupId>
-            <artifactId>mysql-connector-j</artifactId>
-            <version>9.2.0</version>
-        </dependency>
+    <!-- Removed duplicate dependency for mysql-connector-j -->
 
     </dependencies>
     <build>
@@ -28,7 +33,7 @@
             <artifactId>exec-maven-plugin</artifactId>
             <version>3.1.0</version>
             <configuration>
-                <mainClass>Bank.Management.System</mainClass>
+                <mainClass>Bank.Management.System.login</mainClass>
             </configuration>
         </plugin>
     </plugins>

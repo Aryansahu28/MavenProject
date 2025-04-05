@@ -33,7 +33,7 @@ public class login extends JFrame implements ActionListener{
 
         setLayout(null);
 
-        ImageIcon i1 = new ImageIcon(ClassLoader.getSystemResource("/icons/logo.jpg"));
+        ImageIcon i1 = new ImageIcon(getClass().getResource("icons/logo.jpg"));
         Image i2 = i1.getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT);
         ImageIcon i3 = new ImageIcon(i2);
         JLabel label = new JLabel(i3);
@@ -106,7 +106,8 @@ public class login extends JFrame implements ActionListener{
             } else if(ae.getSource() == login){
                 Conn c = new Conn();
                 String cardnumber = CardTextField.getText();
-                String pinnumber = pinTextField.getText();
+                char[] pinnumbers = pinTextField.getPassword();
+                String pinnumber = new String(pinnumbers);
                 String query = "select * from login where cardnumber = '"+cardnumber+"' and pin = '"+pinnumber+"'";
                 try{
                    ResultSet rs = c.s.executeQuery(query);
@@ -140,5 +141,6 @@ public class login extends JFrame implements ActionListener{
     }
     public static void main(String[] args){
         new login();
+        System.out.println("Login working");
     }
 }
