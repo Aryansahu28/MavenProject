@@ -103,7 +103,7 @@ public class login extends JFrame implements ActionListener{
                 CardTextField.setText("");
                 pinTextField.setText("");
 
-            } else if(ae.getSource() == login || ae.getSource()==){
+            } else if(ae.getSource() == login){
                 Conn c = new Conn();
                 String cardnumber = CardTextField.getText();
                 char[] pinnumbers = pinTextField.getPassword();
