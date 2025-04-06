@@ -221,7 +221,7 @@ public class Signupthree extends JFrame implements ActionListener{
                 try {
                     
                     Conn c = new Conn();
-                    String query1 = "INSERT INTO signupthree VALUES('"+formno+"','"+cardnum+"','"+pin_num+"','"+account_type+"','"+facility+"',)";
+                    String query1 = "INSERT INTO signupthree VALUES('"+formno+"','"+cardnum+"','"+pin_num+"','"+account_type+"','"+facility+"')";
                     c.s.executeQuery(query1);
                     JOptionPane.showMessageDialog(null, cardnum);
                     JOptionPane.showMessageDialog(null,pin_num);

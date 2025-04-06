@@ -222,21 +222,22 @@ public class SignupOne extends JFrame implements ActionListener{
         String pincode = pincodeTextField.getText();
     
         // Validate the date format
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        dateFormat.setLenient(false);
-        try {
-            dateFormat.parse(dob); // Check if the date is valid
-        } catch (ParseException e) {
-            JOptionPane.showMessageDialog(null, "Invalid date format. Please use dd/MM/yyyy.");
-            return; // Stop further execution if the date is invalid
-        }
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
+    SimpleDateFormat dbFormat = new SimpleDateFormat("yyyy-MM-dd");
+    String formattedDob = null;
+    try {
+        formattedDob = dbFormat.format(inputFormat.parse(dob));
+    } catch (ParseException e) {
+        JOptionPane.showMessageDialog(null, "Invalid date format. Please enter the date in dd/MM/yyyy format.");
+        return;
+    }
     
         try {
             if (name.equals("")) {
                 JOptionPane.showMessageDialog(null, "Name is required");
             } else {
                 Conn c = new Conn();
-                String query = "INSERT INTO signup VALUES('" + formno + "','" + name + "','" + fname + "','" + dob + "','" + gender + "','" + marital + "','" + address + "','" + city + "','" + pincode + "','" + state + "')";
+                String query = "INSERT INTO signup VALUES('"+formno+"','"+name+"','"+fname+"','"+formattedDob+"','"+gender+"','"+marital+"','"+address+"','"+city+"','"+pincode+"','"+state+"')";
                 c.s.executeUpdate(query);
     
                 setVisible(false);
