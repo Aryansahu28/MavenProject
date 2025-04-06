@@ -4,6 +4,7 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -57,13 +58,13 @@ public class Withdrawal extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae){
+        String number = amount.getText();
         if(ae.getSource()==withdraw){
-            String number = amount.getText();
-            // LocaleDate date = LocalDate
+           LocalDate date = LocalDate.now();
+           try{
             Conn c = new Conn();
-            String query = "INSERT INTO bank VALUES('pinnumber','"+number+"')";
-            try{
-                c.s.executeUpdate(query);
+            String query = "INSERT INTO bank VALUES('"+pinnumber+"','"+date+"','Withdrawal','"+number+"')";
+            c.s.executeUpdate(query);
             }catch(Exception e){
                 System.out.println(e);
             }

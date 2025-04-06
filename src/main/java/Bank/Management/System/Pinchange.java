@@ -109,9 +109,9 @@ public class Pinchange extends JFrame implements ActionListener{
                 String query2 = "update login set pin = '"+repintext+"' where pin ='"+pinnumber+"'";
                 String query3 = "update signupthree set pin_num = '"+repintext+"' where pin_num ='"+pinnumber+"'";
 
-                c.s.executeQuery(query1);
-                c.s.executeQuery(query2);
-                c.s.executeQuery(query3);
+                c.s.executeUpdate(query1);
+                c.s.executeUpdate(query2);
+                c.s.executeUpdate(query3);
 
                 JOptionPane.showMessageDialog(null,"Pin Change Sucessfully");
                 setVisible(false);

@@ -182,9 +182,8 @@ public class Signupthree extends JFrame implements ActionListener{
 
     public void actionPerformed(ActionEvent ae){
         
-        if(declaration.isSelected()){
-        if(ae.getSource()== submit){
-                String account_type = null;
+        
+            String account_type = null;
                 if(saving.isSelected()){
                     account_type = "Saving Account";
 
@@ -197,9 +196,11 @@ public class Signupthree extends JFrame implements ActionListener{
                 }
                 
                 Random ran = new Random();
-                String cardnum = "" + (Math.abs((ran.nextLong()%9000000L)+417864132000L));
+                long first7 = (ran.nextLong() % 90000000L) + 5040936000000000L;
+                String cardnum =  "" + Math.abs(first7);
                 System.out.println(cardnum);
-                String pin_num = "" + ran.nextLong()%100000L;
+                long first3 = (ran.nextLong() % 9000L) + 1000L;
+                String pin_num =  "" + Math.abs(first3);
 
                 String facility = "";
                 if(atm.isSelected()){
@@ -215,31 +216,37 @@ public class Signupthree extends JFrame implements ActionListener{
                 }else if(estatement.isSelected()){
                     facility = facility + "E-statement";
                 }
-
-
-
-                try {
-                    
-                    Conn c = new Conn();
-                    String query1 = "INSERT INTO signupthree VALUES('"+formno+"','"+cardnum+"','"+pin_num+"','"+account_type+"','"+facility+"')";
-                    c.s.executeQuery(query1);
-                    JOptionPane.showMessageDialog(null, cardnum);
-                    JOptionPane.showMessageDialog(null,pin_num);
-
-                
-
-
-                } catch (Exception e) {
-                    System.out.println(e);
-                }
             
-        }
-    }
-    else if(ae.getSource()==cancel){
-            System.exit(0);
-    }
+                
+                try{
+                    if(ae.getSource()==submit){
+                        
+                        if(account_type.equals("")){
+                            JOptionPane.showMessageDialog(null, "Fill all the required fields");
+                        }else{
+                            Conn c1 = new Conn();
+                            String q1 = "INSERT INTO signupthree VALUES('"+formno+"','"+cardnum+"','"+pin_num+"','"+account_type+"','"+facility+"')";  
+                            String q2 = "insert into login values('"+formno+"','"+cardnum+"','"+pin_num+"')";
+                            c1.s.executeUpdate(q1);
+                            c1.s.executeUpdate(q2);
+                            JOptionPane.showMessageDialog(null, "Card Number: " + cardnum + "\n Pin:"+ pin_num);
+                            
+                            new deposit(pin_num).setVisible(true);
+                            setVisible(false);
+                            new BalanceEnquiry(pin_num);
+                        }
+                    
+                    }else if(ae.getSource()==cancel){
+                        System.exit(0);
+                    }
+                    
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                }
+
+               
         
-    }
+            }
     public static void main(String[] args){
             new Signupthree("");
     }

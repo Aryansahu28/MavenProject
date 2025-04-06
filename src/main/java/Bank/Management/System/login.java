@@ -47,17 +47,17 @@ public class login extends JFrame implements ActionListener{
 
 
         JLabel CardNo = new JLabel("Card No:");
-        CardNo.setFont(new Font("Raleway",Font.BOLD,28));
+        CardNo.setFont(new Font("Raleway",Font.BOLD,25));
         CardNo.setBounds(120,150,150,30);
         add(CardNo);
 
         CardTextField = new JTextField();
-        CardTextField.setFont(new Font("Arial",Font.PLAIN,25));
+        CardTextField.setFont(new Font("Arial",Font.PLAIN,15));
         CardTextField.setBounds(300,150,230,30);
         add(CardTextField);
 
         JLabel pin = new JLabel("Pin:");
-        pin.setFont(new Font("Raleway",Font.BOLD,28));
+        pin.setFont(new Font("Raleway",Font.BOLD,25));
         pin.setBounds(120,220,250,30);
         add(pin);
 

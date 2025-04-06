@@ -62,7 +62,7 @@ public class deposit extends JFrame implements ActionListener{
         if(ae.getSource()==deposit){
            LocalDate date = LocalDate.now();
             Conn c = new Conn();
-            String query = "INSERT INTO bank VALUES('pinnumber','"+date+"','Deposit','"+number+"')";
+            String query = "INSERT INTO bank VALUES('"+pinnumber+"','"+date+"','Deposit','"+number+"')";
             try{
                 c.s.executeUpdate(query);
             }catch(Exception e){

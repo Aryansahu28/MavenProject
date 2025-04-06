@@ -71,7 +71,7 @@ public class Transactions extends JFrame implements ActionListener{
         exit.setBounds(355,520,150,30);
         exit.addActionListener(this);
         image.add(exit);
-
+        
 
         setSize(900,900);
         setLocation(300,0);
@@ -90,7 +90,7 @@ public class Transactions extends JFrame implements ActionListener{
         }
         else if(ae.getSource() == withdrawal){
             setVisible(false);
-            // new Withdrawal(pinnumber).setVisible(true);
+            new Withdrawal(pinnumber).setVisible(true);
         }
         else if(ae.getSource() == fastcash){
             setVisible(false);
@@ -99,6 +99,11 @@ public class Transactions extends JFrame implements ActionListener{
         else if(ae.getSource() == pinchange){
             setVisible(false);
             new Pinchange(pinnumber).setVisible(true);
+        }
+
+        else if(ae.getSource() == balanceenquiry){
+            setVisible(false);
+            new BalanceEnquiry(pinnumber).setVisible(true);
         }
     }
 
